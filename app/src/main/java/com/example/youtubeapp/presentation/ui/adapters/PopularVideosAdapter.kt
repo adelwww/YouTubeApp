@@ -1,16 +1,16 @@
-package com.example.youtubeapp.ui.adapters
+package com.example.youtubeapp.presentation.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.youtubeapp.data.models.PopularVideosItem
 import com.example.youtubeapp.databinding.ItemVideosBinding
 import com.example.youtubeapp.extensions.loadImage
 
 class PopularVideosAdapter
-    : ListAdapter<PopularVideosItem, PopularVideosAdapter.PopularVideoViewHolder>(
+    : PagingDataAdapter<PopularVideosItem, PopularVideosAdapter.PopularVideoViewHolder>(
     PopularVideosDiffCallBack) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularVideoViewHolder {

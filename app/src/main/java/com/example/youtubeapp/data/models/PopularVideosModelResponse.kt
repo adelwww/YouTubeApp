@@ -11,7 +11,7 @@ data class PopularVideosModelResponse<T>(
     val etag: String,
 
     @SerializedName("nextPageToken")
-    val nextPageToken: String,
+    val nextPageToken: String?,
 
     @SerializedName("prefPageToken")
     val prefPageToken: String,

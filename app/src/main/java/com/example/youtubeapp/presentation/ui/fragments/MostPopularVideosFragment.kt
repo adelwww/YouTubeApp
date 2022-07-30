@@ -1,20 +1,21 @@
-package com.example.youtubeapp.ui.fragments
+package com.example.youtubeapp.presentation.ui.fragments
 
-import android.util.Log
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.youtubeapp.R
 import com.example.youtubeapp.base.BaseFragment
 import com.example.youtubeapp.databinding.FragmentMostPopularVideosBinding
-import com.example.youtubeapp.ui.adapters.PopularVideosAdapter
-import com.example.youtubeapp.utils.Either
+import com.example.youtubeapp.presentation.ui.adapters.PopularVideosAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MostPopularVideosFragment : BaseFragment<PopularVideoViewModel, FragmentMostPopularVideosBinding>(
-    R.layout.fragment_most_popular_videos
-) {
+class MostPopularVideosFragment :
+    BaseFragment<PopularVideoViewModel, FragmentMostPopularVideosBinding>(
+        R.layout.fragment_most_popular_videos
+    ) {
+
     override val viewModel: PopularVideoViewModel by viewModels()
     override val binding by viewBinding(FragmentMostPopularVideosBinding::bind)
     private val popularVideosAdapter = PopularVideosAdapter()
@@ -24,7 +25,7 @@ class MostPopularVideosFragment : BaseFragment<PopularVideoViewModel, FragmentMo
     }
 
     private fun setupAdapter() = with(binding.recycler) {
-        layoutManager =  LinearLayoutManager(requireContext())
+        layoutManager = LinearLayoutManager(requireContext())
         adapter = popularVideosAdapter
     }
 
@@ -33,15 +34,9 @@ class MostPopularVideosFragment : BaseFragment<PopularVideoViewModel, FragmentMo
     }
 
     private fun subscribeToPopularVideos() {
-        viewModel.fetchPopularVideos().observe(viewLifecycleOwner){
-            when(it){
-                is Either.Left -> {
-                    Log.e("son", it.value)
-                }
-                is Either.Right -> {
-                    Log.e("son", it.value.toString())
-                    popularVideosAdapter.submitList(it.value.items)
-                }
+        viewModel.fetchPopularVideos().observe(viewLifecycleOwner) {
+            lifecycleScope.launchWhenStarted {
+                popularVideosAdapter.submitData(it)
             }
         }
     }

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mostPopularVideosFragment"
-        android:name="com.example.youtubeapp.ui.fragments.MostPopularVideosFragment"
+        android:name="com.example.youtubeapp.presentation.ui.fragments.MostPopularVideosFragment"
         android:label="fragment_most_popular_videos"
         tools:layout="@layout/fragment_most_popular_videos" />
 </navigation>

@@ -14,11 +14,11 @@ data class SnippetModel(
     val title: String,
 
     @SerializedName("thumbnails")
-    val thumbnails: Thumbnails,
+    val thumbnails: ThumbnailsModel,
 
     @SerializedName("channelTitle")
     val channelTitle: String,
 
     @SerializedName("categoryId")
-    val categoryId: String
+    val categoryId: String?
 )
